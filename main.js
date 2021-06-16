@@ -3,7 +3,7 @@ let toDo = [];
 let toDoItems = 0;
 let complete = [];
 let status = (complete) => {
-    const something = complete ? "Incomplete" : "Complete";
+    const something = complete ? "Complete" : "Incomplete";
     return something;
 }
 
@@ -12,7 +12,10 @@ while(prompt !== 'done') {
     const input = console.log(
         ' \n' +
         '[1] Create a to-do item \n' +
-        '[2] Complete a to-do item' + 
+        '[2] Complete a to-do item \n' + 
+        '[3] Update existing to-do item \n' +
+        '[4] Delete to-do item \n' +
+        '[5] Exit \n' +
         ' \n' 
     )
 
@@ -34,9 +37,13 @@ while(prompt !== 'done') {
     if (create === 2 || create === '2') {
 
         console.log(' ');
+        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+        console.log(' ');
         for(i = 0; i < toDo.length; i++) {
-            console.log(`[${[i]}] ${status(complete)} ${toDo[i]}`);
+            console.log(`[${[i]}] [${status(complete[i])}] ${toDo[i]}`);
         }
+        console.log(' ');
+        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
         console.log(' ');
 
         console.log('Enter the to-do item id of the task you would like to complete');
@@ -49,18 +56,97 @@ while(prompt !== 'done') {
         }
 
         else {
-            complete[{create}] = true;
-            console.log(complete[{create}]);
+            complete[check] = true;
             console.log(' ');
         }
 
     }
 
+    if (create === 3 || create === '3') {
+        console.log(' ');
+        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+        console.log(' ');
+        for(i = 0; i < toDo.length; i++) {
+            console.log(`[${[i]}] [${status(complete[i])}] ${toDo[i]}`);
+        }
+        console.log(' ');
+        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+        console.log(' ');
+
+        console.log('Enter the to-do item id of the task you would like to edit');
+        console.log(' ');
+        let getter = prompt('');
+
+        if (getter > complete.length || isNaN(getter)) {
+            console.log('Enter a valid to-do item ID')
+            console.log(' ');
+        }
+
+        if (getter === '' ||
+            getter === ' ' ||
+            getter === '  ' ||
+            getter === '   ' ||
+            getter === '    ' 
+        ) {
+            toDo[getter] = toDo[getter];
+        }
+
+        else {
+            console.log('Input to-do item name');
+            console.log(' ');
+            let update = prompt('');
+            toDo[getter] = update;
+            console.log(' ');
+        }
+    }
+
+    if (create === 4 || create === '4') {
+        console.log(' ');
+        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+        console.log(' ');
+        for(i = 0; i < toDo.length; i++) {
+            console.log(`[${[i]}] [${status(complete[i])}] ${toDo[i]}`);
+        }
+        console.log(' ');
+        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+        console.log(' ');
+
+        console.log('Enter the to-do item id you would like to delete');
+        console.log(' ');
+        let del = prompt('');
+
+        if (del > complete.length || isNaN(del)) {
+            console.log('Enter a valid to-do item ID')
+            console.log(' ');
+        }
+
+        if (
+            del === '' ||
+            del === ' '|| 
+            del === 'back' ||
+            del === 'BACK' || 
+            del === 'Back') {
+                null;
+        }
+
+        else {
+            console.log(' ');
+            toDoItems -= 1;
+            toDo.splice(del, 1);
+            console.log(' ');
+        }
+    }
+
+    if (create === 5 || create === '5') {
+        process.exit();
+    }
+
     console.log('===============================================================');
     console.log(' ');
     console.log(`You have ${toDoItems} to-do item(s):`);
+    console.log(' ');
     for(i = 0; i < toDo.length; i++) {
-        console.log(`   ${[i]}. ${status(complete)} ${toDo[i]}`)
+        console.log(`   ${[i]}. [${status(complete[i])}] ${toDo[i]}`)
     }
     console.log(' ');
     console.log('===============================================================');
